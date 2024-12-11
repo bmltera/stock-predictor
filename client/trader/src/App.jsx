@@ -14,7 +14,7 @@ function App() {
     setLoading(true)
     try {
 
-      // dummy data DELETE LATER
+      // set dummy data
       setHighPrice(getRandomPrice());
       setLowPrice(getRandomPrice());
       setAvgPrice(getRandomPrice());
@@ -25,14 +25,21 @@ function App() {
         ["2023-10-01", "BULL"],
         ["2023-10-01", "BULL"]
       ]);
+
+      // get real data
       setDateMessage(`You have selected today as ${date}. SmartTrader has made the following predictions:`)
-      const response = await fetch(`http://localhost:8000/predict?date=${date}`)
+      const url = `http://localhost:8000/predict?date=${date}`
+      console.log(url)
+      const response = await fetch(url)
+      console.log("got result")
+
       const result = await response.json();
+      console.log("got result")
       setHighPrice(result.high)
       setLowPrice(result.low)
       setAvgPrice(result.avg)
       setTradingStrategy(result.strategy)
-
+      console.log(result)
     }
     catch (error) {
       console.error("Error fetching data:", error)

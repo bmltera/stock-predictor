@@ -28,7 +28,7 @@ function App() {
 
       // get real data
       setDateMessage(`You have selected today as ${date}. SmartTrader has made the following predictions:`)
-      const url = `http://localhost:8000/predict?date=${date}`
+      const url = `https://stock-predictor-backend.onrender.com/predict?date=${date}`
       console.log(url)
       const response = await fetch(url)
       console.log("got result")

@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import random
 import threading
 import time
 import requests
 
 app = Flask(__name__)
+CORS(app)
 
 def keep_alive():
     while True:

@@ -1,33 +1,40 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 import random
+import threading
+import time
+import requests
 
 app = Flask(__name__)
-CORS(app)
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
+def keep_alive():
+    while True:
+        try:
+            requests.get('https://stock-predictor-backend.onrender.com') 
+            #requests.get('http://localhost:8000') 
+            print(f"Keep-alive request sent: {time.strftime('%Y-%m-%d %H:%M:%S')}.")
+        except Exception as e:
+            print(f"Error sending keep-alive request: {e}")
+        time.sleep(random.uniform(20, 60))
+
+thread = threading.Thread(target=keep_alive)
+thread.daemon = True 
+thread.start()
+
 
 @app.route('/predict', methods=['GET'])
 def predict():
-    # Get the date from the query parameters
     date = request.args.get('date')
     
     if not date:
         return jsonify({"error": "Date parameter is required"}), 400
 
+    high = round(random.uniform(10, 200), 2)
+    low = round(random.uniform(10, high), 2)
+    avg = round((high + low) / 2, 2)
 
-    # SAMPLE DATA
-    high = round(random.uniform(10, 200), 2)  # Random high price 
-    low = round(random.uniform(10, high), 2)  # Random low price 
-    avg = round((high + low) / 2, 2)       
-
-    strategies = ["BULL", "BEAR", "BULL", "BULL", "TEST"]
-    
+    strategies = ["BULL", "BEAR", "BULL", "BULL", "BEAR"]
     trading_strategy = [(date, strategy) for strategy in strategies]
 
-    # Create the response object
     response = {
         "high": high,
         "low": low,
@@ -37,5 +44,10 @@ def predict():
 
     return jsonify(response)
 
+
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
+
 if __name__ == '__main__':
-    app.run(host ='0.0.0.0', debug=True, port=8000)
+    app.run(debug=True, port=8000)

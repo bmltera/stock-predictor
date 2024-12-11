@@ -14,7 +14,7 @@ def keep_alive():
             print(f"Keep-alive request sent: {time.strftime('%Y-%m-%d %H:%M:%S')}.")
         except Exception as e:
             print(f"Error sending keep-alive request: {e}")
-        time.sleep(random.uniform(20, 60))
+        time.sleep(random.uniform(300, 600))
 
 thread = threading.Thread(target=keep_alive)
 thread.daemon = True 

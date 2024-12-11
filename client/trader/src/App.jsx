@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './App.css'
-// test comment
 function App() {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const [dateMessage, setDateMessage] = useState("")
@@ -26,7 +25,7 @@ function App() {
         ["2023-10-01", "BULL"],
         ["2023-10-01", "BULL"]
       ]);
-
+      setDateMessage(`You have selected today as ${date}. SmartTrader has made the following predictions:`)
       const response = await fetch(`http://localhost:8000/predict?date=${date}`)
       const result = await response.json();
       setHighPrice(result.high)
@@ -44,7 +43,7 @@ function App() {
   }
   
   const getRandomPrice = () => {
-    return (Math.random() * (200 - 10) + 10).toFixed(2); // Generates a random price between 10.00 and 200.00
+    return (Math.random() * (200 - 10) + 10).toFixed(2);
   };
 
   const resetData = () => {
@@ -68,10 +67,11 @@ function App() {
       </div>
       
       <div className="bottom-container">
-        {loading && <p>Loading...</p>} {/* Show loading indicator */}
+        {dateMessage && <p style={{ textAlign: 'left' }}>{dateMessage}</p>} 
+        {loading && <p>Loading...</p>}
         {!loading && 
           <>
-        <h3 style={{ textAlign: 'left' }}>Predicted prices for the next five business days in USD are:</h3>
+        <h3 style={{ textAlign: 'left' }}>Predicted prices for the next five business days (in USD) are:</h3>
         <table style={{ border: '1px solid black', borderCollapse: 'collapse' }}>
           <tbody>
             <tr>

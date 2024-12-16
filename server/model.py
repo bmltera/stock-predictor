@@ -94,13 +94,13 @@ def actual_from_date(input_date, ticker="NVDA", n_future=5):
     return future_data
 
 # Example usage:
-test_date = "2024-8-03"
-predicted_df = predict(test_date)
-actual_df = actual_from_date(test_date)
-print("Predicted Prices:")
-print(predicted_df)
-print("\nActual Prices:")
-print(actual_df)
+# test_date = "2024-8-03"
+# predicted_df = predict(test_date)
+# actual_df = actual_from_date(test_date)
+# print("Predicted Prices:")
+# print(predicted_df)
+# print("\nActual Prices:")
+# print(actual_df)
 
 
 

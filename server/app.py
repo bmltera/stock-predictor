@@ -27,8 +27,6 @@ thread.start()
 
 
 def transform_predictions(predictions):
-    # predictions is a list of dicts, each with keys: Close, High, Low, Open, date
-
     # Extract needed values
     closes = [p['Close'] for p in predictions]
     highs = [p['High'] for p in predictions]
@@ -42,10 +40,6 @@ def transform_predictions(predictions):
     # Determine strategy for each day
     strategy_list = []
     for p in predictions:
-        # Simple logic:
-        # If Close > Open -> BULL
-        # If Close < Open -> BEAR
-        # Else -> IDLE
         if p['Close'] > p['Open']:
             strat = "BULL"
         elif p['Close'] < p['Open']:
@@ -54,7 +48,6 @@ def transform_predictions(predictions):
             strat = "IDLE"
         strategy_list.append([p['date'], strat])
 
-    # Round values to 2 decimal places or as needed
     result = {
         "avg": round(avg_close, 2),
         "high": round(overall_high, 2),
@@ -65,28 +58,6 @@ def transform_predictions(predictions):
 
 @app.route('/predict', methods=['GET'])
 def get_prediction():
-
-
-    # date = request.args.get('date')
-    
-    # if not date:
-    #     return jsonify({"error": "Date parameter is required"}), 400
-
-    # high = round(random.uniform(10, 200), 2)
-    # low = round(random.uniform(10, high), 2)
-    # avg = round((high + low) / 2, 2)
-
-    # strategies = ["BULL", "BEAR", "BULL", "BULL", "BEAR"]
-    # trading_strategy = [(date, strategy) for strategy in strategies]
-
-    # response = {
-    #     "high": high,
-    #     "low": low,
-    #     "avg": avg,
-    #     "strategy": trading_strategy
-    # }
-    # return jsonify(response)
-
     try:
         # Get input date from query parameters
         input_date = request.args.get('date')        

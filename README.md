@@ -5,3 +5,10 @@ Stock predictor for NVIDIA and NVDQ
 
 Live Demo:
 https://smarttraderai.netlify.app/
+
+### Features
+- Stock Price Prediction: Uses an LSTM model for time-series predictions based on historical stock data.
+- Trading Strategies: Generates BULLISH, BEARISH, or IDLE strategies to optimize portfolio performance.
+  
+### Accuracy and Performance
+- Achieved a Mean Squared Error (MSE) of 87.82 during model evaluation, outperforming simpler models such as linear regression and Random Forest.
